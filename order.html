@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #333;
+    }
+
+    .order {
+      border: 1px solid #ddd;
+      margin: 1rem 0;
+      border-radius: 8px;
+      padding: 1rem;
+      background: #fdfdfd;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .order h3 {
+      margin: 0;
+      color: #555;
+    }
+
+    .order-items {
+      margin-top: 0.5rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    .order-items li {
+      padding: 0.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #eee;
+    }
+
+    .order-items li:last-child {
+      border-bottom: none;
+    }
+
+    .order-complete-btn {
+      margin-top: 1rem;
+      padding: 0.5rem;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .order-complete-btn:hover {
+      background: #218838;
+    }
+
+    #loading {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    .completed {
+      background: #ddd !important;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Order Management</h1>
+    </header>
+    <div id="orders-section">
+      <div id="loading">Loading orders...</div>
+    </div>
+  </div>
+
+  <script>
+    // Fetch orders and render them
+    async function fetchOrders() {
+      const ordersSection = document.getElementById("orders-section");
+      ordersSection.innerHTML = `<div id="loading">Loading orders...</div>`;
+      try {
+        const response = await fetch("getOrders.php");
+        const orders = await response.json();
+
+        // Group orders by order_id
+        const groupedOrders = groupOrdersByOrderId(orders);
+
+        // Render orders
+        renderOrders(groupedOrders);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        ordersSection.innerHTML = `<div id="loading">Failed to load orders. Please try again.</div>`;
+      }
+    }
+
+    // Group orders by order_id
+    function groupOrdersByOrderId(orders) {
+      const grouped = {};
+      orders.forEach(order => {
+        if (!grouped[order.order_id]) {
+          grouped[order.order_id] = [];
+        }
+        grouped[order.order_id].push({
+          item_name: order.item_name,
+          quantity: order.quantity
+        });
+      });
+      return grouped;
+    }
+
+    // Render grouped orders
+    function renderOrders(groupedOrders) {
+      const ordersSection = document.getElementById("orders-section");
+      ordersSection.innerHTML = "";
+
+      const orderIds = Object.keys(groupedOrders);
+      if (orderIds.length === 0) {
+        ordersSection.innerHTML = `<div id="loading">No orders available.</div>`;
+        return;
+      }
+
+      orderIds.forEach((orderId, index) => {
+        const orderDiv = document.createElement("div");
+        orderDiv.classList.add("order");
+
+        const orderTitle = document.createElement("h3");
+        orderTitle.textContent = `Order #${orderId}`;
+        orderDiv.appendChild(orderTitle);
+
+        const orderItemsList = document.createElement("ul");
+        orderItemsList.classList.add("order-items");
+
+        groupedOrders[orderId].forEach(item => {
+          const itemLi = document.createElement("li");
+          itemLi.innerHTML = `<span>${item.item_name}</span><span>Qty: ${item.quantity}</span>`;
+          orderItemsList.appendChild(itemLi);
+        });
+
+        orderDiv.appendChild(orderItemsList);
+
+        const completeButton = document.createElement("button");
+        completeButton.textContent = "Mark as Completed";
+        completeButton.classList.add("order-complete-btn");
+        completeButton.addEventListener("click", () => markOrderCompleted(orderId, completeButton));
+        orderDiv.appendChild(completeButton);
+
+        ordersSection.appendChild(orderDiv);
+      });
+    }
+
+    // Mark order as completed
+    async function markOrderCompleted(orderId, button) {
+      if (button.classList.contains("completed")) return;
+
+      button.textContent = "Completing...";
+      button.disabled = true;
+
+      try {
+        const formData = new FormData();
+        formData.append("ids", orderId);
+        const response = await fetch("completeOrder.php", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.text();
+        console.log("data => ",data);
+
+        if (response.ok) {
+          button.textContent = "Completed";
+          button.classList.add("completed");
+        } else {
+          throw new Error("Failed to complete order");
+        }
+      } catch (error) {
+        console.error("Error completing order:", error);
+        button.textContent = "Mark as Completed";
+        button.disabled = false;
+      }
+    }
+
+    // Initial load
+    fetchOrders();
+  </script>
+</body>
+</html>

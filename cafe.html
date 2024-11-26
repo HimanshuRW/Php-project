@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafe Item Manager</title>
+  <link rel="stylesheet" href="cafe.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Cafe Management</h1>
+      <div id="staff-section">
+        <h2>Staff: Yash Bhaiya</h2>
+        <button id="switch">Orders</button>
+      </div>
+    </header>
+    <main>
+      <section id="item-section">
+        <h2>Cafe Items</h2>
+        <div id="item-list"></div>
+      </section>
+      <section id="form-section">
+        <h2>Add / Edit Item</h2>
+        <form id="item-form">
+          <input type="hidden" name="item-id" id="item-id" value="">
+          <div>
+            <label for="item-name">Item Name:</label>
+            <input type="text" id="item-name" name="item-name" placeholder="Enter item name" required>
+          </div>
+          <div>
+            <label for="item-price">Item Price (₹):</label>
+            <input type="number" id="item-price" name="item-price" placeholder="Enter item price" required>
+          </div>
+          <div>
+            <label for="item-description">Item Description:</label>
+            <textarea id="item-description" name="item-description" rows="3" placeholder="Enter item description" required></textarea>
+          </div>
+          <div>
+            <label for="item-category">Item Category:</label>
+            <input type="text" id="item-category" name="item-category" placeholder="Enter item category" required>
+          </div>
+          <button type="submit" id="submit_btn">Save Item</button>
+        </form>
+      </section>
+    </main>
+  </div>
+  <script src="cafe.js"></script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu - Cafe JIIT 128</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Link to your shared CSS -->
+    <link rel="stylesheet" href="menu.css" />
+    <!-- Link to your shared CSS -->
+  </head>
+  <body>
+    <div class="nav">
+      <div class="logocon">
+        <img src="JIIT-Noida-Logo.png" alt="JIIT logo" />
+        <h1>Cafe JIIT 128</h1>
+      </div>
+      <div class="Navigation">
+        <ul class="noBullet">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="orders.html">Orders</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </div>
+      <div class="nav-items">
+        <span
+          class="cart-icon"
+          id="cart-icon"
+          onclick="window.location.href='cart.html'"
+          >🛒<span class="cart-count" id="cart-count">0</span></span
+        >
+      </div>
+    </div>
+
+    <div class="menu" id="menu">
+      <!-- Menu items will be added here using JavaScript -->
+    </div>
+
+    <script>
+      let cartCount = localStorage.getItem("cartCount");
+      if (cartCount) {
+        document.getElementById("cart-count").textContent = cartCount;
+      }
+      const menuDiv = document.getElementById("menu");
+
+      async function getMenu() {
+        const response = await fetch("getMenu.php");
+        const data = await response.json();
+        let menuItems = {};
+
+        // Group items by section
+        data.forEach((item) => {
+          if (!menuItems[item.section]) {
+            menuItems[item.section] = [];
+          }
+          menuItems[item.section].push(item);
+        });
+
+        // Populate the menu
+        const menuDiv = document.getElementById("menu");
+        for (let section in menuItems) {
+          menuDiv.innerHTML += `<h2 class="section-name">${section}</h2>
+            <div class="menu-items" id="${section}"></div>`;
+          menuItems[section].forEach((item) => {
+            const quantity = localStorage.getItem(`cartItem_${item.id}`) || 0;
+            const buttonHTML =
+              quantity > 0
+                ? `<div class="cart-controls">
+                    <button onclick="decrement(${item.id})">-</button>
+                    <span id="quantity-${item.id}">${quantity}</span>
+                    <button onclick="increment(${item.id})">+</button>
+                   </div>`
+                : `<button onclick="addToCart(${item.id})" id="add-btn-${item.id}">Add to Cart</button>`;
+            const menuItemHTML = `<div class="menu-item">
+                <h3>${item.name}</h3>
+                <p>${item.description}</p>
+                <p>Price: ₹${item.price}</p>
+                ${buttonHTML}
+            </div>`;
+            document.getElementById(section).innerHTML += menuItemHTML;
+          });
+        }
+      }
+
+      getMenu();
+
+      function addToCart(id) {
+        let quantity = parseInt(localStorage.getItem(`cartItem_${id}`)) || 0;
+        quantity++;
+        localStorage.setItem(`cartItem_${id}`, quantity);
+        console.log(`Added item ${id} to cart. Quantity: ${quantity}`);
+        const btn_id = `add-btn-${id}`;
+        const btn = document.getElementById("add-btn-"+id);
+        const btn_parent = btn.parentNode;
+        btn_parent.innerHTML += `<div class="cart-controls">
+            <button onclick="decrement(${id})">-</button>
+            <span id="quantity-${id}">${quantity}</span>
+            <button onclick="increment(${id})">+</button>
+            </div>`;
+        console.log("added cart controls");
+        document.getElementById("add-btn-"+id).remove();
+        console.log("removed add to cart button");
+        updateCartCount();
+      }
+
+      function increment(id) {
+        let quantity = parseInt(localStorage.getItem(`cartItem_${id}`)) || 0;
+        quantity++;
+        localStorage.setItem(`cartItem_${id}`, quantity);
+        updateCartButtons(id, quantity);
+      }
+
+      function decrement(id) {
+        let quantity = parseInt(localStorage.getItem(`cartItem_${id}`)) || 0;
+        if (quantity > 0) {
+          quantity--;
+          localStorage.setItem(`cartItem_${id}`, quantity);
+          updateCartButtons(id, quantity);
+        }
+      }
+
+      function updateCartButtons(id, quantity) {
+        const buttonContainer = document.querySelector(
+          `#quantity-${id}`
+        )?.parentNode;
+        if (quantity > 0) {
+          document.getElementById(`quantity-${id}`).textContent = quantity;
+        } else {
+          buttonContainer.innerHTML = `<button onclick="addToCart(${id})" id="add-btn-${id}">Add to Cart</button>`;
+        }
+        updateCartCount();
+      }
+
+      function updateCartCount() {
+        let cartCount = 0;
+        for (let key in localStorage) {
+          if (key.startsWith("cartItem_")) {
+            cartCount += parseInt(localStorage.getItem(key)) || 0;
+          }
+        }
+        document.getElementById("cart-count").textContent = cartCount;
+      }
+
+      // On page load, update cart count
+      document.addEventListener("DOMContentLoaded", updateCartCount);
+    </script>
+  </body>
+</html>

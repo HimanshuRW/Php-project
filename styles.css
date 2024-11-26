@@ -1,0 +1,189 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa; /* Light gray background for the entire page */
+    margin: 0;
+    padding: 0;
+}
+
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #343a40; /* Dark background for the nav */
+    padding: 15px 20px; /* Increased padding for better aesthetics */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.logocon {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0; /* Prevents the logo from shrinking */
+}
+
+.logocon img {
+    width: 50px; /* Adjust logo size */
+    height: auto;
+}
+
+.logocon h1 {
+    font-size: 24px;
+    margin-left: 10px;
+    color: #ffffff; /* White text color */
+}
+
+.Navigation {
+    flex-grow: 1; /* Allow the navigation to take available space */
+    text-align: center; /* Center the navigation items */
+}
+
+.Navigation ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center; /* Center the nav items */
+    margin: 0;
+    padding: 0;
+}
+
+.Navigation li {
+    margin: 0 20px; /* Space between menu items */
+}
+
+.Navigation a {
+    text-decoration: none;
+    color: #ffffff; /* White text color */
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.Navigation a:hover {
+    color: #ffc107; /* Yellow color on hover */
+}
+
+.cart-icon {
+    cursor: pointer;
+    font-size: 20px; /* Size of the cart icon */
+    position: relative; /* Position for the cart count */
+}
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red; /* Red background for the count */
+    color: white; /* White text for visibility */
+    border-radius: 50%; /* Circular count */
+    padding: 2px 5px; /* Padding for the count */
+    font-size: 12px; /* Font size for the count */
+}
+
+.login-container, .signup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px); /* Adjust height to account for the navbar */
+    margin-top: 20px; /* Add margin to push content below the navbar */
+    background-color: #ffffff; /* White background for the form */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    padding: 40px; /* Padding around the form */
+}
+
+h2 {
+    color: #343a40; /* Dark text color */
+    margin-bottom: 20px; /* Space below the heading */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space between form fields */
+    width: 100%; /* Full width */
+}
+
+label {
+    display: block; /* Block display for labels */
+    margin-bottom: 5px; /* Space below labels */
+    color: #495057; /* Darker text color */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside input fields */
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    transition: border-color 0.3s; /* Transition for border color */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none; /* Remove default outline */
+}
+
+button {
+    background-color: #007bff; /* Blue background for button */
+    color: white; /* White text color */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding for button */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Transition for background color ```css
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.login-link {
+    margin-top: 15px; /* Space above the login link */
+    color: #6c757d; /* Gray text color */
+}
+
+.login-link a {
+    color: #007bff; /* Blue color for the link */
+    text-decoration: none; /* No underline */
+}
+
+.login-link a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+.welcome-section {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.welcome-section h2 {
+    font-size: 36px;
+    color: #333;
+}
+
+.welcome-section p {
+    font-size: 18px;
+    color: #555;
+}
+
+button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    border: none;
+    border-radius: 5px; /* Rounded button corners */
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px; /* Space between buttons */
+    margin-bottom: 10px; /* Space below the buttons */
+    transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+button.remove {
+    margin-right: 0; /* Remove right margin for the remove button */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+/* write all css for menu page */
+

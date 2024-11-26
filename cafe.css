@@ -1,0 +1,150 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  header h1 {
+    font-size: 28px;
+    color: #4caf50;
+  }
+  #staff-section {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+
+  }
+  #staff-section h2 {
+    font-size: 18px;
+    color: #777;
+  }
+  
+  /* Items Section */
+  #item-section h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+  
+  #item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .category {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #fefefe;
+  }
+  
+  .category h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+  }
+  
+  .item-card {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafafa;
+    width: 220px;
+    display: inline-block;
+    margin-right: 20px;
+  }
+  
+  .item-card h4 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .item-card p {
+    margin: 5px 0;
+    color: #666;
+  }
+  
+  .item-card button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #f44336;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .item-card button.edit {
+    background-color: #4caf50;
+  }
+  
+  .item-card button:hover {
+    opacity: 0.9;
+  }
+  
+  /* Form Section */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  form div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  form input, form textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  form button {
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  form button:hover {
+    background-color: #45a049;
+  }
+  
+  #switch{
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #f44336;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

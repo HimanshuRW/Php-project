@@ -1,0 +1,122 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+.menu {
+    padding: 20px;
+    /* max-width: 1200px; */
+    margin: auto;
+}
+
+/* Section Header */
+.section-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    color: #333;
+    /* border-bottom: 2px solid #007BFF; */
+    padding-bottom: 0px;
+}
+
+/* Horizontal slider for menu items */
+.menu-items {
+    display: flex;
+    overflow-x: auto;
+    gap: 15px;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+}
+
+.menu-items::-webkit-scrollbar {
+    height: 10px;
+}
+
+.menu-items::-webkit-scrollbar-thumb {
+    /* background: #007BFF; */
+    background: rgba(209, 26, 6, 0.416);
+    border-radius: 7px;
+}
+
+.menu-items::-webkit-scrollbar-track {
+    background: #ddd;
+}
+
+/* Individual menu item */
+.menu-item {
+    flex: 0 0 auto;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.menu-item h3 {
+    font-size: 20px;
+    color: #007BFF;
+    margin-bottom: 10px;
+}
+
+.menu-item p {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Button styling */
+.menu-item button {
+    /* background: #007BFF; */
+    background: rgb(209, 27, 6);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.menu-item button:hover {
+    background: rgb(177, 20, 2);
+}
+
+/* Cart buttons */
+.cart-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.cart-controls button {
+    /* background: #007BFF; */
+    background: rgb(209, 27, 6);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cart-controls button:hover {
+    /* background: #0056b3; */
+    background: rgb(226, 27, 5);
+}
+
+.cart-controls span {
+    font-size: 18px;
+    font-weight: bold;
+}

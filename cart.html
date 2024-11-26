@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart - Cafe JIIT 128</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="cart.css" />
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- Link to your shared CSS -->
+  </head>
+  <body>
+    <div class="nav">
+      <div class="logocon">
+        <img src="JIIT-Noida-Logo.png" alt="JIIT logo" />
+        <h1>Cafe JIIT 128</h1>
+      </div>
+      <div class="Navigation">
+        <ul class="noBullet">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="orders.html">Orders</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="login.html">Login</a></li>
+        </ul>
+      </div>
+
+      <div class="nav-items">
+        <span
+          class="cart-icon"
+          id="cart-icon"
+          onclick="window.location.href='cart.html'"
+          >🛒<span class="cart-count" id="cart-count">0</span></span
+        >
+      </div>
+    </div>
+
+    <div class="cart-section">
+      <h2>Your Cart</h2>
+      <div id="cart-items"></div>
+      <div id="total-amount" style="font-weight: bold; margin-top: 20px"></div>
+      <button id="checkout-button">Proceed to Checkout</button>
+    </div>
+
+    <script>
+      // load the cart items from local storage
+      async function loadCartItems() {
+        const cartItemsDiv = document.getElementById("cart-items");
+        let totalAmount = 0;
+        let key_array = [];
+        for (let key in localStorage) {
+          if (key.startsWith("cartItem_")) {
+            const quantity = parseInt(localStorage.getItem(key));
+            const id = key.split("_")[1];
+            key_array.push(id);
+          }
+        }
+        const formData = new FormData();
+        formData.append("ids", key_array);
+        const response = await fetch("getItemsByids.php", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        data.forEach((item) => {
+          const quantity = parseInt(
+            localStorage.getItem(`cartItem_${item.id}`)
+          );
+          const itemHTML = `<div class="cart-item">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-quantity">Quantity: ${quantity}</div>
+            <div class="cart-item-price">Price: ₹${item.price}</div>
+          </div>`;
+          cartItemsDiv.innerHTML += itemHTML;
+          totalAmount += item.price * quantity;
+        });
+        document.getElementById(
+          "total-amount"
+        ).textContent = `Total: ₹${totalAmount}`;
+      }
+
+      loadCartItems();
+
+      // Stripe payment
+      const stripe = Stripe(
+        "pk_test_51NndDXSIDierbZqcQpa7QUQYeuCaoF9BG5nlvZJHCo3HZPivo8dwMR9DwjtiBy7p8qjKzvZBm6mazSbx5iSPPDln00MQgvOWKT"
+      );
+
+      document
+        .getElementById("checkout-button")
+        .addEventListener("click", function () {
+          const formData = new FormData();
+          formData.append(
+            "amount",
+            parseInt(
+              document.getElementById("total-amount").textContent.split("₹")[1]
+            )
+          );
+          fetch("payment.php", {
+            method: "POST",
+            body: formData,
+          })
+            .then(async function (response) {
+              return response.json();
+            })
+            .then(function (sessionId) {
+              console.log("sessionId => ", sessionId.id);
+              // clear the local storage
+              for (let key in localStorage) {
+                if (key.startsWith("cartItem_")) {
+                  localStorage.removeItem(key);
+                }
+              }
+              return stripe.redirectToCheckout({ sessionId: sessionId.id });
+            })
+            .then(function (result) {
+              if (result.error) {
+                alert(result.error.message);
+              }
+            })
+            .catch(function (error) {
+              console.error("Error:", error);
+            });
+        });
+    </script>
+  </body>
+</html>

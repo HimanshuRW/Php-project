@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafe JIIT 128</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your shared CSS -->
+    <style>
+        .hero {
+            background-image: url('cafe.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+        .hero-text {
+            /* background-color: rgba(0, 0, 0, 0.5); */
+            position: absolute;
+            z-index: 3;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .hero-text h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+        .hero-text p {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .hero-text button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            border: none;
+            background-color: #ffcc29;
+            color: black;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .hero-text button:hover {
+            background-color: #ffdb4d;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <div class="logocon">
+            <img src="JIIT-Noida-Logo.png" alt="JIIT logo" />
+            <h1>Cafe JIIT 128</h1>
+        </div>
+        <div class="Navigation">
+            <ul class="noBullet">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+        <div class="nav-items">
+            <span class="cart-icon" id="cart-icon" onclick="window.location.href='cart.html'">🛒<span class="cart-count" id="cart-count">0</span></span>
+        </div>
+    </div>
+    <div class="hero">
+        <div class="hero-text">
+            <h1>Welcome to Cafe JIIT 128</h1>
+            <p>Order your favourite food from the best cafe in JIIT</p>
+            <button onclick="window.location.href='menu.html'">Order Now</button>
+        </div>
+</body>
+</html>

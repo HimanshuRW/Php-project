@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Cafe JIIT 128</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your shared CSS -->
+</head>
+<body>
+    <div class="nav">
+        <div class="logocon">
+            <img src="JIIT-Noida-Logo.png" alt="JIIT logo" />
+            <h1>Cafe JIIT 128</h1>
+        </div>
+        <div class="Navigation">
+            <ul class="noBullet">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+       
+        <div class="nav-items">
+            <span class="cart-icon" id="cart-icon" onclick="window.location.href='cart.html'">🛒<span class="cart-count" id="cart-count">0</span></span>
+        </div>
+    </div>
+
+    <div class="about-section">
+        <h2>About Us</h2>
+        <p>Welcome to Cafe JIIT 128, where we serve delicious food and beverages in a cozy atmosphere. Our mission is to provide quality service and a memorable dining experience.</p>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        function updateCartCount() {
+            const cartCount = Object.values(cart).reduce((total, item) => total + item.quantity, 0);
+            document.getElementById("cart-count").textContent = cartCount;
+        }
+
+        updateCartCount();
+    </script>
+</body>
+</html>

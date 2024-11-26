@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cafe JIIT 128</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css"> <!-- Link to your shared CSS -->
+</head>
+<body>
+    <div class="nav">
+        <div class="logocon">
+            <img src="JIIT-Noida-Logo.png" alt="JIIT logo" />
+            <h1>Cafe JIIT 128</h1>
+        </div>
+        <div class="Navigation">
+            <ul class="noBullet">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+        <div class="nav-items">
+            <span class="cart-icon" id="cart-icon" onclick="window.location.href='cart.html'">🛒<span class="cart-count" id="cart-count">0</span></span>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <h2>Welcome Back!</h2>
+        <form id="login-form" method="post" action="login.php">
+            <div class="form-group">
+                <label for="username">Staff ID</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+</body>
+</html>
